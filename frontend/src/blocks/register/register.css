@@ -1,0 +1,13 @@
+@import url("./__button/register__button.css");
+@import url("./__form/register__form.css");
+@import url("./__input/register__input.css");
+@import url("./__login-link/register__login-link.css");
+@import url("./__signin/register__signin.css");
+@import url("./__title/register__title.css");
+
+.register {
+    color: white;
+    max-width: 360px;
+    margin: auto;
+    margin-top: 50px;
+}
