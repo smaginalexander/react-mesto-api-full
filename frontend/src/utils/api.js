@@ -12,11 +12,15 @@ class Api {
         }
     }
     // инофрмация профиля
-    getUserInfo() {
+    getUserInfo(jwt) {
         return fetch(
             `${this._url}/users/me`,
             {
-                headers: this._headers
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${jwt}`,
+                },
             })
             .then(this._checkResult)
     }
@@ -94,9 +98,9 @@ class Api {
 }
 
 export const api = new Api({
-    url: 'https://mesto.nomoreparties.co/v1/cohort-16',
+    url: 'http://api.smaginalexander.students.nomoredomains.work',
     headers: {
-        authorization: '6d48ba52-ec94-43bc-a696-2925494647b4',
+        authorization: `Bearer ${localStorage.getItem('jwt')}`,
         'Content-Type': 'application/json'
     }
 })

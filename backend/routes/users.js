@@ -3,11 +3,11 @@ const { celebrate, Joi } = require('celebrate');
 const {
   getUsers, getProfile, getUserInfo, createUser, login,
 } = require('../controllers/users.js');
-const auth = require('../middlewares/auth');
+// const auth = require('../middlewares/auth');
 
-router.get('/users', auth, getUsers);
-router.get('/users/:_id', auth, getProfile);
-router.get('/users/me', auth, getUserInfo);
+router.get('/users', getUsers);
+router.get('/users/:_id', getProfile);
+router.get('/users/me', getUserInfo);
 
 router.post('/signup',
   celebrate({
