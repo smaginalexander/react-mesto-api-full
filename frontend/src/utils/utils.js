@@ -6,3 +6,4 @@ export const validationConfig = {
     inputErrorClass: 'popup__input_error',
     errorClass: 'popup__error_visible'
 }
+export const baseUrl = 'https://api.smaginalexander.students.nomoredomains.work';

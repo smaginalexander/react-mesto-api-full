@@ -1,4 +1,4 @@
-export const BASE_URL = 'api.smaginalexander.students.nomoredomains.work';
+import { baseUrl } from './utils';
 
 function checkResult(res) {
     if (res.ok) {
@@ -8,7 +8,7 @@ function checkResult(res) {
 }
 
 export const register = (email, password) => {
-    return fetch(`${BASE_URL}/signup`, {
+    return fetch(`${baseUrl}/signup`, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -23,7 +23,7 @@ export const register = (email, password) => {
 }
 
 export const authorize = (email, password) => {
-    return fetch(`${BASE_URL}/signin`, {
+    return fetch(`${baseUrl}/signin`, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -43,7 +43,7 @@ export const authorize = (email, password) => {
 }
 
 export const getContent = (token) => {
-    return fetch(`${BASE_URL}/users/me`, {
+    return fetch(`${baseUrl}/users/me`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
