@@ -49,15 +49,6 @@ function App() {
     setEmail(email);
   }
 
-  //изначальная инфа и фотки
-  React.useEffect(() => {
-    Promise.all([api.getCardList(), api.getUserInfo()])
-      .then(([cards, user]) => {
-        setCurrentUser(user);
-        setCards(cards);
-      })
-      .catch(err => console.log(err))
-  }, []);
 
   //редактирование профия попап
   const handleEditProfileClick = function () {
@@ -82,7 +73,7 @@ function App() {
 
   //постановка лайка или дизлайка
   const handleCardLike = function (card) {
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    const isLiked = card.likes.some((like) => like === currentUser._id);
     api.changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
         const newCards = cards.map((c) => c._id === card._id ? newCard : c);
@@ -165,6 +156,16 @@ function App() {
         })
     }
   }
+
+  //изначальная инфа и фотки
+  React.useEffect(() => {
+    Promise.all([api.getCardList(), api.getUserInfo()])
+      .then(([cards, user]) => {
+        setCurrentUser(user);
+        setCards(cards);
+      })
+      .catch(err => console.log(err))
+  }, []);
 
   React.useEffect(() => {
     tokenCheck();

@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://auth.nomoreparties.co';
+export const BASE_URL = 'http://localhost:3000';
 
 function checkResult(res) {
     if (res.ok) {
@@ -37,6 +37,7 @@ export const authorize = (email, password) => {
         .then(checkResult)
         .then((data) => {
             localStorage.setItem('jwt', data.token);
+            console.log(data.token);
             return data;
         });
 }

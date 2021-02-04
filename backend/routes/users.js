@@ -1,13 +1,21 @@
 const router = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
 const {
-  getUsers, getProfile, getUserInfo, createUser, login,
+  getUsers,
+  getUserInfo,
+  createUser,
+  login,
+  updateUser,
+  updateUserAvatar,
 } = require('../controllers/users.js');
-// const auth = require('../middlewares/auth');
 
-router.get('/users', getUsers);
-router.get('/users/:_id', getProfile);
-router.get('/users/me', getUserInfo);
+const auth = require('../middlewares/auth');
+
+router.get('/users', auth, getUsers);
+router.get('/users/me', auth, getUserInfo);
+router.patch('/users/me', auth, updateUser);
+
+router.patch('/users/me/avatar', auth, updateUserAvatar);
 
 router.post('/signup',
   celebrate({

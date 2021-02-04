@@ -9,13 +9,6 @@ const getUsers = (req, res, next) => {
     .then((users) => res.status(200).send(users))
     .catch(next);
 };
-// вывод пользователя по id
-const getProfile = (req, res, next) => {
-  User.findById(req.params.id)
-    .orFail(new BadRequestError('Нет пользователя с таким id'))
-    .then((user) => res.status(200).send(user))
-    .catch(next);
-};
 
 const createUser = (req, res, next) => {
   const {
@@ -56,6 +49,46 @@ const getUserInfo = (req, res, next) => {
     .catch(next);
 };
 
+const updateUser = (req, res, next) => {
+  const {
+    name,
+    about,
+  } = req.body;
+
+  User.findByIdAndUpdate(req.user._id, { name, about }, { runValidators: true, new: true })
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        throw new BadRequestError(err.message);
+      }
+      return next(err);
+    })
+    .then((user) => {
+      if (!user) {
+        throw new BadRequestError('Не удалось найти пользователя');
+      }
+      return res.status(200).send(user);
+    })
+    .catch(next);
+};
+
+const updateUserAvatar = (req, res, next) => {
+  const { avatar } = req.body;
+  User.findByIdAndUpdate(req.user._id, { avatar }, { new: true })
+    .then((user) => {
+      if (!user) {
+        throw new BadRequestError('аватар не обновился');
+      } else {
+        res.status(200).send({ avatar: user.avatar });
+      }
+    })
+    .catch(next);
+};
+
 module.exports = {
-  getUsers, getProfile, createUser, login, getUserInfo,
+  getUsers,
+  createUser,
+  login,
+  getUserInfo,
+  updateUser,
+  updateUserAvatar,
 };
