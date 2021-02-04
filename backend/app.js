@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const { errors } = require('celebrate');
 const bodyParser = require('body-parser');
-const path = require('path');
+// const path = require('path');
 const mongoose = require('mongoose');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
@@ -27,7 +27,9 @@ app.get('/crash-test', () => {
     throw new Error('Сервер сейчас упадёт');
   }, 0);
 });
-app.use(express.static(path.join(__dirname, 'public')));
+
+// app.use(express.static(path.join(__dirname, 'public')));
+
 app.use('*', (req, res) => res.status(404).send({ message: 'Запрашиваемый ресурс не найден' }));
 app.use(errorLogger);
 

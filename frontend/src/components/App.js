@@ -169,7 +169,8 @@ function App() {
 
   React.useEffect(() => {
     tokenCheck();
-  }, []);
+    // eslint-disable-next-line
+  }, [loggedIn]);
 
   //выход из системы
   const exitFromPage = () => {
