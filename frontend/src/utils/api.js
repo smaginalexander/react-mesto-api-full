@@ -1,10 +1,10 @@
-import { baseUrl } from './utils';
-const token = localStorage.getItem("jwt");
+const token = localStorage.getItem("jwt")
 class Api {
     constructor(config) {
         this._url = config.url;
         this._headers = config.headers;
     }
+
     _checkResult(res) {
         if (res.ok) {
             return res.json();
@@ -14,7 +14,6 @@ class Api {
     }
     // инофрмация профиля
     getUserInfo() {
-        console.log(this._url);
         return fetch(
             `${this._url}/users/me`,
             {
@@ -121,7 +120,7 @@ class Api {
 }
 
 export const api = new Api({
-    url: baseUrl,
+    url: 'https://api.smaginalexander.students.nomoredomains.work',
     headers: {
         "Content-type": "application/json",
     },
