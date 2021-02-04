@@ -120,7 +120,7 @@ class Api {
 }
 
 export const api = new Api({
-    url: 'http://localhost:3000',
+    url: 'api.smaginalexander.students.nomoredomains.work',
     headers: {
         "Content-type": "application/json",
     },
