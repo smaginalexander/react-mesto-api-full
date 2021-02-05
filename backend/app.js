@@ -4,6 +4,7 @@ const { errors } = require('celebrate');
 const bodyParser = require('body-parser');
 const path = require('path');
 const mongoose = require('mongoose');
+const NotFoundError = require('./errors/notFoundError');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const { PORT = 3000 } = process.env;
@@ -30,11 +31,13 @@ app.get('/crash-test', () => {
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('*', (req, res) => res.status(404).send({ message: 'Запрашиваемый ресурс не найден' }));
+app.use('*', (req, res, next) => {
+  next(new NotFoundError('запрашиваемый ресурс не найден'));
+});
 app.use(errorLogger);
 
 app.use((err, req, res, next) => {
-  const { statusCode = 500, message } = err;
+  const { statusCode = 400, message } = err;
   console.log(err);
   res.status(statusCode)
     .send({

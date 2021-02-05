@@ -144,15 +144,18 @@ function App() {
       let jwt = localStorage.getItem('jwt');
       auth.getContent(jwt)
         .then((res) => {
-          if (res.data) {
+          if (res) {
             console.log(res)
             setLoggedIn(true);
-            setEmail(res.data.email);
+            setEmail(res.email);
             history.push('/');
+          } else {
+            console.log(res)
           }
         })
         .catch((err) => {
-          console.log(err);
+          setLoggedIn(false);
+          console.log("некорректный токен");
         })
     }
   }
@@ -201,6 +204,7 @@ function App() {
     auth.authorize(email, password)
       .then((res) => {
         if (res) {
+          setLoggedIn(true);
           handleLogin(email);
           history.push('/');
         }

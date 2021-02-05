@@ -1,5 +1,10 @@
 const router = require('express').Router();
-const { celebrate, Joi } = require('celebrate');
+const {
+  updateUserValidastion,
+  createUservalidation,
+  updateUserAvatarValidation,
+} = require('../middlewares/validation');
+
 const {
   getUsers,
   getUserInfo,
@@ -13,23 +18,9 @@ const auth = require('../middlewares/auth');
 
 router.get('/users', auth, getUsers);
 router.get('/users/me', auth, getUserInfo);
-router.patch('/users/me', auth, updateUser);
 
-router.patch('/users/me/avatar', auth, updateUserAvatar);
-
-router.post('/signup',
-  celebrate({
-    body: Joi.object().keys({
-      email: Joi.string().required().email(),
-      password: Joi.string().required().min(8),
-    }),
-  }), createUser);
-
-router.post('/signin',
-  celebrate({
-    body: Joi.object().keys({
-      email: Joi.string().required().email(),
-      password: Joi.string().required().min(8),
-    }),
-  }), login);
+router.patch('/users/me', updateUserValidastion, auth, updateUser);
+router.patch('/users/me/avatar', updateUserAvatarValidation, auth, updateUserAvatar);
+router.post('/signup', createUservalidation, createUser);
+router.post('/signin', createUservalidation, login);
 module.exports = router;
