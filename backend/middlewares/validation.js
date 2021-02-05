@@ -24,6 +24,9 @@ const updateUserAvatarValidation = celebrate({
   body: Joi.object().keys({
     avatar: Joi.string().regex(/^https?:\/\/(www.)?[\w-]{1,63}\.[\w-]{1,256}[a-z-._~:/?#[\]@!$&'()*+,;=]*#?/i),
   }),
+  params: Joi.object().keys({
+    id: Joi.string().hex().length(24),
+  }),
 });
 
 const cardIdValidation = celebrate({
@@ -36,6 +39,9 @@ const cardValidation = celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
     link: Joi.string().required().regex(/^https?:\/\/(www.)?[\w-]{1,63}\.[\w-]{1,256}[a-z-._~:/?#[\]@!$&'()*+,;=]*#?/i),
+  }),
+  params: Joi.object().keys({
+    id: Joi.string().hex().length(24),
   }),
 });
 module.exports = {
