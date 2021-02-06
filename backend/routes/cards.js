@@ -10,8 +10,8 @@ const {
 const auth = require('../middlewares/auth');
 
 router.get('/cards', auth, getCards);
-router.put('/cards/likes/:cardId/', cardIdValidation, auth, cardLike);
-router.delete('/cards/likes/:cardId/', cardIdValidation, auth, cardLikeRemove);
+router.put('/cards/:cardId/likes/', cardIdValidation, auth, cardLike);
+router.delete('/cards/:cardId/likes/', cardIdValidation, auth, cardLikeRemove);
 router.post('/cards', cardValidation, auth, createCard);
 
 router.delete('/cards/:cardId', cardIdValidation, auth, deleteCard);

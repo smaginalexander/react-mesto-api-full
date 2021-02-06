@@ -1,5 +1,6 @@
 const Card = require('../models/card');
 const BadRequestError = require('../errors/badRequestError');
+const NotFoundError = require('../errors/notFoundError');
 
 const getCards = (req, res, next) => {
   Card.find({})
@@ -25,7 +26,7 @@ const deleteCard = (req, res, next) => {
   Card.findByIdAndRemove(req.params.cardId)
     .then((card) => {
       if (!card) {
-        throw new BadRequestError('Нельзя удалить эту карточку');
+        throw new NotFoundError('Нельзя удалить эту карточку');
       } else {
         res.send({ data: card });
       }

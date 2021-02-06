@@ -21,7 +21,13 @@ const createUser = (req, res, next) => {
         return User.create({
           name, about, avatar, email, password: hash,
         })
-          .then((newUser) => res.status(200).send(newUser));
+          .then((newUser) => res.status(200).send({
+            name: newUser.name,
+            about: newUser.about,
+            avatar: newUser.avatar,
+            email: newUser.email,
+            _id: newUser._id,
+          }));
       })
       .catch(next);
   });
@@ -75,7 +81,7 @@ const updateUserAvatar = (req, res, next) => {
   const { avatar } = req.body;
   User.findByIdAndUpdate(req.user._id, { avatar }, { new: true })
     .then((user) => {
-      if (!user) {
+      if (!user || user.avatar === null) {
         throw new BadRequestError('аватар не обновился');
       } else {
         res.status(200).send({ avatar: user.avatar });

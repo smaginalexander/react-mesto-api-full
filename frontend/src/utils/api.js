@@ -86,7 +86,7 @@ class Api {
     //лайки и дизлайки
     changeLikeCardStatus(id, isLiked) {
         if (isLiked) {
-            return fetch(`${this._url}/cards/likes/${id}`, {
+            return fetch(`${this._url}/cards/${id}/likes`, {
                 method: "PUT",
                 headers: {
                     authorization: `Bearer ${token}`,
@@ -95,7 +95,7 @@ class Api {
             })
                 .then(this._checkResult);
         } else {
-            return fetch(`${this._url}/cards/likes/${id}`, {
+            return fetch(`${this._url}/cards/${id}/likes`, {
                 method: "DELETE",
                 headers: {
                     authorization: `Bearer ${token}`,

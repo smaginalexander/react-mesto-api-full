@@ -2,7 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const { errors } = require('celebrate');
 const bodyParser = require('body-parser');
-const path = require('path');
 const mongoose = require('mongoose');
 const NotFoundError = require('./errors/notFoundError');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
@@ -28,8 +27,6 @@ app.get('/crash-test', () => {
     throw new Error('Сервер сейчас упадёт');
   }, 0);
 });
-
-app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('*', (req, res, next) => {
   next(new NotFoundError('запрашиваемый ресурс не найден'));
