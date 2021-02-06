@@ -34,11 +34,7 @@ const cardIdValidation = celebrate({
     cardId: Joi.string().hex().length(24),
   }),
 });
-const cardIdDeleteValidation = celebrate({
-  params: Joi.object().keys({
-    cardId: Joi.string().hex(),
-  }),
-});
+
 const cardValidation = celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
@@ -54,5 +50,4 @@ module.exports = {
   updateUserAvatarValidation,
   cardIdValidation,
   cardValidation,
-  cardIdDeleteValidation,
 };
