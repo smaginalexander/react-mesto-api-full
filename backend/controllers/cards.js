@@ -44,7 +44,7 @@ const cardLike = (req, res, next) => {
     })
     .then((card) => {
       if (!card) {
-        throw new BadRequestError('Не удалось найти карточку');
+        throw new NotFoundError('Не удалось найти карточку');
       }
       return res.status(200).send(card);
     })
@@ -61,7 +61,7 @@ const cardLikeRemove = (req, res, next) => {
     })
     .then((card) => {
       if (!card) {
-        throw new BadRequestError('Не удалось найти карточку');
+        throw new NotFoundError('Не удалось найти карточку');
       }
       return res.status(200).send(card);
     })
